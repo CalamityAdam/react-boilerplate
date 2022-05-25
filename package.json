@@ -7,7 +7,7 @@
     "start": "parcel src/index.html --open",
     "test": "jest"
   },
-  "author": "",
+  "author": "CalamityAdam",
   "license": "ISC",
   "dependencies": {
     "react": "^18.1.0",
