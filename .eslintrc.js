@@ -3,6 +3,7 @@ module.exports = {
   extends: ['plugin:react/recommended', '@ramseyinhouse'],
   env: {
     browser: true,
+    es6: true,
     jest: true,
     node: true,
   },
@@ -12,9 +13,12 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks'],
   rules: {
-    'comma-dangle': [2, 'always-multiline'],
+    'comma-dangle': [1, 'always-multiline'],
+    'no-console': 'off',
+    'no-unused-vars': "warn",
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    semi: [2, 'always'],
+    'react/prop-types': 'off',
+    semi: [1, 'always'],
   },
 };
