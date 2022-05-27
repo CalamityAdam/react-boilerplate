@@ -22,6 +22,16 @@ This is a boilerplate React 18 repository, being served by Parcel, complete with
   ```sh
   npm run test
   ```
+- Lint the JavaScript
+  ```sh
+  npm run lint
+  ```
+
+## Variations
+If you need a few additional dependencies, check out these different variations:
+
+- [with react-router](https://github.com/CalamityAdam/react-boilerplate/tree/react-router)
+- [with react-bootstrap](https://github.com/CalamityAdam/react-boilerplate/tree/react-bootstrap)
 
 ---
 
