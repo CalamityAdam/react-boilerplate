@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src --ext .js,.jsx"
   },
   "author": "CalamityAdam",
   "license": "ISC",
@@ -14,10 +15,15 @@
     "react-dom": "^18.1.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.18.2",
     "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.17.12",
+    "@ramseyinhouse/eslint-config": "^1.0.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "eslint": "^8.16.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "parcel": "^2.5.0"
