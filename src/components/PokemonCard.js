@@ -13,7 +13,7 @@ function PokemonCard({ url, name }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [url]);
 
   return (
     <Card style={{ width: '18rem' }} className='m-2'>

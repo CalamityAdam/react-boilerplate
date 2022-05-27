@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 import React from 'react';
-import { render, waitFor, act } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { App } from './App';
 const initialFetch = window.fetch;
 
@@ -14,7 +14,7 @@ describe('App', () => {
               {
                 name: 'frankie fastfingers',
                 url: 'https://pokeapi.co/api/v2/pokemon/1/',
-              }
+              },
             ],
           }),
       })
