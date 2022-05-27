@@ -18,6 +18,7 @@ haters
 .env
 .vscode
 .cache
+TODO.md
 
 # package managers
 npm-debug.log*
