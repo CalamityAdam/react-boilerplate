@@ -16,17 +16,25 @@ function PokemonCard({ url, name }) {
   }, []);
 
   return (
-    <Card /* bg='dark' text='light' */ style={{ width: '18rem' }} className='m-2'>
-      <Card.Img width="286" height="286" bg='dark' variant='top' src={pokemon?.sprites.front_default} />
+    <Card style={{ width: '18rem' }} className='m-2'>
+      <Card.Img
+        width='286'
+        height='286'
+        bg='dark'
+        variant='top'
+        src={pokemon?.sprites.front_default}
+      />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
           Abilities:
-          {/* <ul> */}
-            {pokemon?.abilities.map((ability) => (
+          <br />
+          {pokemon?.abilities.map((ability) => (
+            <React.Fragment key={ability.ability.name}>
               <span key={ability.ability.name}>{ability.ability.name}</span>
-            ))}
-          {/* </ul> */}
+              <br />
+            </React.Fragment>
+          ))}
         </Card.Text>
       </Card.Body>
     </Card>
