@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ./src --ext .js,.jsx",
     "start": "parcel src/index.html --open",
-    "test": "jest",
-    "lint": "eslint ./src --ext .js,.jsx"
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "author": "CalamityAdam",
   "license": "ISC",
