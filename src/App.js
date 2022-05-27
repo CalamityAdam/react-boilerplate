@@ -1,10 +1,11 @@
 import React from 'react';
+import Container from 'react-bootstrap/container';
 
 function App() {
   return (
-    <div>
+    <Container>
       <h1>hello, world</h1>
-    </div>
+    </Container>
   );
 }
 
