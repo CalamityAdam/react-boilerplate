@@ -16,7 +16,7 @@ function PokemonCard({ url, name }) {
   }, [url]);
 
   return (
-    <Card style={{ width: '18rem' }} className='m-2'>
+    <Card style={{ width: '18rem' }} className="mx-auto">
       <Card.Img
         width='286'
         height='286'
