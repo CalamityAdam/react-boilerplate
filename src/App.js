@@ -1,10 +1,9 @@
 import React from 'react';
-import Container from 'react-bootstrap/container';
-import Carousel from 'react-bootstrap/carousel';
+import { Carousel } from 'react-bootstrap';
 
 function App() {
   return (
-    <Container className='mt-4'>
+    <>
       <h1>Multicats</h1>
 
       {/* Add your code here 👇 */}
@@ -22,7 +21,7 @@ function App() {
       </Carousel>
 
       {/* Add your code here ☝️ */}
-    </Container>
+    </>
   );
 }
 

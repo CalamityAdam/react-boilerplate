@@ -1,7 +1,28 @@
 /** @jest-environment jsdom */
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { App } from './App';
+
+const Carousel = ({ children }) => (
+  <>
+    <div data-testid='carousel'>{children}</div>
+  </>
+);
+const Item = ({ children }) => (
+  <>
+    <div data-testid='item'>{children}</div>
+  </>
+);
+const Caption = ({ children }) => (
+  <>
+    <div data-testid='caption'>{children}</div>
+  </>
+);
+Carousel.Item = Item;
+Carousel.Caption = Caption;
+
+jest.mock('react-bootstrap', () => ({ Carousel }));
 
 it('should render', () => {
   const { baseElement } = render(<App />);
@@ -10,21 +31,19 @@ it('should render', () => {
 });
 
 it('should render a carousel', () => {
-  const { baseElement } = render(<App />);
+  const { getByTestId } = render(<App />);
 
-  expect(baseElement.getElementsByClassName('carousel slide').length).toBe(1);
+  expect(getByTestId('carousel')).toBeInTheDocument();
 });
 
 it('should render a carousel with 4 items', () => {
-  const { baseElement } = render(<App />);
+  const { getAllByTestId } = render(<App />);
 
-  expect(baseElement.getElementsByClassName('carousel-item').length).toBe(4);
+  expect(getAllByTestId('item').length).toBe(4);
 });
 
 it('each carousel item should have a caption', () => {
-  const { baseElement } = render(<App />);
+  const { getAllByTestId } = render(<App />);
 
-  [...baseElement.getElementsByClassName('carousel-item')].forEach((item) => {
-    expect(item.getElementsByClassName('carousel-caption').length).toBe(1);
-  });
+  expect(getAllByTestId('caption').length).toBe(4);
 });
