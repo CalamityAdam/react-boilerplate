@@ -24,26 +24,41 @@ Carousel.Caption = Caption;
 
 jest.mock('react-bootstrap', () => ({ Carousel }));
 
-it('should render', () => {
-  const { baseElement } = render(<App />);
+describe('Carousel component', () => {
+  it('should render', () => {
+    const { baseElement } = render(<App />);
 
-  expect(baseElement).toBeInTheDocument();
+    expect(baseElement).toBeInTheDocument();
+  });
+
+  it('should render a carousel', () => {
+    const { getByTestId } = render(<App />);
+
+    expect(getByTestId('carousel')).toBeInTheDocument();
+  });
 });
 
-it('should render a carousel', () => {
-  const { getByTestId } = render(<App />);
+describe('Carousel.Item component', () => {
+  it('should render a carousel with 4 items', () => {
+    const { getAllByTestId } = render(<App />);
 
-  expect(getByTestId('carousel')).toBeInTheDocument();
+    expect(getAllByTestId('item').length).toBe(4);
+  });
 });
 
-it('should render a carousel with 4 items', () => {
-  const { getAllByTestId } = render(<App />);
+describe('Carousel.Caption component', () => {
+  it('each carousel item should have a caption', () => {
+    const { getAllByTestId } = render(<App />);
 
-  expect(getAllByTestId('item').length).toBe(4);
+    expect(getAllByTestId('caption').length).toBe(4);
+  });
 });
 
-it('each carousel item should have a caption', () => {
-  const { getAllByTestId } = render(<App />);
-
-  expect(getAllByTestId('caption').length).toBe(4);
+it('each item should have a p and h3', () => {
+  const { getByRole } = render(<App />);
+  
+    expect(getByRole('heading', { name: /^Dopey$/i })).toBeInTheDocument();
+    expect(getByRole('heading', { name: /^Grumpy$/i })).toBeInTheDocument();
+    expect(getByRole('heading', { name: /^Sleepy$/i })).toBeInTheDocument();
+    expect(getByRole('heading', { name: /^Sneezy$/i })).toBeInTheDocument();
 });
