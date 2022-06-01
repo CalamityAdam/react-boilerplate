@@ -1,50 +1,78 @@
-import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+
+const cityApi =
+  'https://gist.githubusercontent.com/CalamityAdam/914dc118289b4b40f1f2adeacc8c445e/raw/57870057da789cfcbaa59f63b3718ac7e5e69008/cities.json';
 
 function App() {
-  const cats = [
-    {
-      imgUrl: 'https://source.unsplash.com/FbhNdD1ow2g',
-      name: 'Dopey',
-      about: 'Just here for the snacks',
-    },
-    {
-      imgUrl: 'https://source.unsplash.com/IZaXUf6sLiA',
-      name: 'Grumpy',
-      about: "Tired of Dopey's snacking",
-    },
-    {
-      imgUrl: 'https://source.unsplash.com/LcAZcVWsCIo',
-      name: 'Sleepy',
-      about: 'ZzzzzzZZzzzz...',
-    },
-    {
-      imgUrl: 'https://source.unsplash.com/HrMD7MngiBE',
-      name: 'Sneezy',
-      about: 'Ah-choo!',
-    },
-  ];
+  const [placesRaw, setPlacesRaw] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+
+  useEffect(() => {
+    fetch(cityApi)
+      .then((res) => res.json())
+      .then((data) => {
+        // store the "master" list of places
+        setPlacesRaw(data);
+        // initialize filtered list to the full list
+        setFilteredPlaces(data);
+      });
+  }, []);
+
+  function handleChange(e) {
+    // grab input value
+    const value = e.target.value;
+    // regex to match input value
+    const regex = new RegExp(value, 'gi');
+    // filter matches from placesRaw
+    const filtered = placesRaw.filter((place) => {
+      return place.name.match(regex) || place.state.match(regex);
+    });
+
+    // set filteredPlaces to matches
+    setFilteredPlaces(filtered);
+  }
 
   return (
-    <div className='mt-4 mx-auto h-75 w-75'>
-      <h1>Multicats</h1>
+    <Container>
+      <Box display='flex' p={3}>
+        <TextField
+          onChange={handleChange}
+          label='City or State'
+          sx={{ mx: 'auto' }}
+        />
+      </Box>
 
       {/* Add your code here 👇 */}
 
-      <Carousel>
-        {cats.map((cat) => (
-          <Carousel.Item key={cat.name}>
-            <img className='w-100' src={cat.imgUrl} alt={cat.name} />
-            <Carousel.Caption>
-              <h3>{cat.name}</h3>
-              <p>{cat.about}</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+      {filteredPlaces.map(({ name, population, state }) => (
+        <Accordion key={name}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls='panel1a-content'
+            id='panel1a-header'
+          >
+            <Typography>
+              {name}, {state}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {name} has a population of {population}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      ))}
 
       {/* Add your code here ☝️ */}
-    </div>
+    </Container>
   );
 }
 
