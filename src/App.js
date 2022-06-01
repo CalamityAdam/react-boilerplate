@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  TextField,
+  Typography,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 const cityApi =
   'https://gist.githubusercontent.com/CalamityAdam/914dc118289b4b40f1f2adeacc8c445e/raw/57870057da789cfcbaa59f63b3718ac7e5e69008/cities.json';
