@@ -26,9 +26,8 @@ describe('App', () => {
 
   it('Should render', async () => {
     const promise = Promise.resolve();
-    const { baseElement, debug } = render(<App />);
-    debug();
-    expect(baseElement).toMatchSnapshot();
+    const { baseElement } = render(<App />);
+
     expect(baseElement).toBeInTheDocument();
 
     await act(async () => {
