@@ -32,7 +32,7 @@ function App() {
   }, [search, pokemonList]);
 
   return (
-    <>
+    <div data-testid="app">
       <Navigation />
 
       <Container>
@@ -58,7 +58,7 @@ function App() {
           ))}
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 

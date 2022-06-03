@@ -1,6 +1,6 @@
 /** @jest-environment jsdom */
 import React from 'react';
-import { render, act } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { App } from './App';
 const initialFetch = window.fetch;
 
@@ -10,12 +10,7 @@ describe('App', () => {
       Promise.resolve({
         json: () =>
           Promise.resolve({
-            results: [
-              {
-                name: 'frankie fastfingers',
-                url: 'https://pokeapi.co/api/v2/pokemon/1/',
-              },
-            ],
+            results: [],
           }),
       })
     );
@@ -25,13 +20,12 @@ describe('App', () => {
   });
 
   it('Should render', async () => {
-    const promise = Promise.resolve();
-    const { baseElement } = render(<App />);
-
-    expect(baseElement).toBeInTheDocument();
-
     await act(async () => {
-      await promise;
+      render(<App />);
     });
+
+    const appContainer = screen.getByTestId('app');
+
+    expect(appContainer).toBeInTheDocument();
   });
 });
