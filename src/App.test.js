@@ -1,35 +1,57 @@
 /** @jest-environment jsdom */
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { App } from './App';
-import { Greeting } from './Greeting';
 
 it('App should be a class component', () => {
   expect(App.prototype.isReactComponent).toBeTruthy();
 });
 
-it('App should render "hello, dave" in an h1', () => {
-  const { getByRole } = render(<App />);
+it('Entering a price should update total', () => {
+  const { getByRole, getByTestId } = render(<App />);
 
-  const heading = getByRole('heading', { name: 'hello, dave' });
+  const priceInput = getByRole('spinbutton', { name: 'price' });
+  const total = getByTestId('total');
 
-  expect(heading).toBeInTheDocument();
-  expect(heading.tagName).toBe('H1');
+  expect(priceInput).toBeInTheDocument();
+  expect(total).toBeInTheDocument();
+
+  fireEvent.change(priceInput, { target: { value: 100 } });
+
+  expect(total.textContent).toBe('$120.00');
 });
 
-it('Greeting should be a class component', () => {
-  expect(Greeting.prototype.isReactComponent).toBeTruthy();
+it('Selecting a tip percent should update total', () => {
+  const { getByRole, getByTestId } = render(<App />);
+
+  const priceInput = getByRole('spinbutton', { name: 'price' });
+  const taxSelect = getByRole('combobox', { name: 'tip' });
+  const total = getByTestId('total');
+  
+  fireEvent.change(priceInput, { target: { value: 100 } });
+  
+  expect(total.textContent).toBe('$120.00');
+  
+  fireEvent.change(taxSelect, { target: { value: 0.15 } });
+  
+  expect(total.textContent).toBe('$115.00');
 });
 
-it('Greeting should render any name', () => {
-  const { getByText } = render(<Greeting name='dave' />);
-  const { getByText: getByText2 } = render(<Greeting name='froderik' />);
-
-  const greeting = getByText('hello, dave');
-  const greeting2 = getByText2('hello, froderik');
-
-  expect(greeting).toBeInTheDocument();
-  expect(greeting.tagName).toBe('H1');
-  expect(greeting2).toBeInTheDocument();
-  expect(greeting2.tagName).toBe('H1');
+it('Selecting a tip percent should update tip amount', () => {
+  const { getByRole, getByTestId } = render(<App />);
+  
+  const priceInput = getByRole('spinbutton', { name: 'price' });
+  const taxSelect = getByRole('combobox', { name: 'tip' });
+  const tip = getByTestId('tip');
+  const total = getByTestId('total');
+  
+  fireEvent.change(priceInput, { target: { value: 100 } });
+  
+  expect(total.textContent).toBe('$120.00');
+  expect(tip.textContent).toBe('$20.00');
+  
+  fireEvent.change(taxSelect, { target: { value: 0.15 } });
+  
+  expect(total.textContent).toBe('$115.00');
+  expect(tip.textContent).toBe('$15.00');
 });
