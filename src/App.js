@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Greeting } from './Greeting';
 
-function App() {
-  return (
-    <div>
-      <h1>hello, world</h1>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Greeting name='dave' />
+      </div>
+    );
+  }
 }
 
 export { App };
