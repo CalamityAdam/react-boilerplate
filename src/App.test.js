@@ -1,57 +1,53 @@
 /** @jest-environment jsdom */
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { App } from './App';
+const initialFetch = window.fetch;
 
 it('App should be a class component', () => {
   expect(App.prototype.isReactComponent).toBeTruthy();
 });
 
-it('Entering a price should update total', () => {
-  const { getByRole, getByTestId } = render(<App />);
+describe('', () => {
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        json: () =>
+          Promise.resolve({
+            text: 'Mitochondria is the powerhouse of the cell.',
+          }),
+      });
+    });
+  });
 
-  const priceInput = getByRole('spinbutton', { name: 'price' });
-  const total = getByTestId('total');
+  afterEach(() => {
+    window.fetch = initialFetch;
+  });
 
-  expect(priceInput).toBeInTheDocument();
-  expect(total).toBeInTheDocument();
+  it('When App renders it should fetch a quote', async () => {
+    await act(() => {
+      render(<App />);
+    });
 
-  fireEvent.change(priceInput, { target: { value: 100 } });
+    expect(window.fetch).toHaveBeenCalled();
+    expect(
+      screen.getByText('Mitochondria is the powerhouse of the cell.')
+    ).toBeInTheDocument();
+  });
 
-  expect(total.textContent).toBe('$120.00');
-});
+  it('Clicking the button should fetch a new quote', async () => {
+    await act(() => {
+      render(<App />);
+    });
+    const button = screen.getByRole('button', { name: 'Find Out More' });
 
-it('Selecting a tip percent should update total', () => {
-  const { getByRole, getByTestId } = render(<App />);
+    await act(() => {
+      fireEvent.click(button);
+    });
 
-  const priceInput = getByRole('spinbutton', { name: 'price' });
-  const taxSelect = getByRole('combobox', { name: 'tip' });
-  const total = getByTestId('total');
-  
-  fireEvent.change(priceInput, { target: { value: 100 } });
-  
-  expect(total.textContent).toBe('$120.00');
-  
-  fireEvent.change(taxSelect, { target: { value: 0.15 } });
-  
-  expect(total.textContent).toBe('$115.00');
-});
-
-it('Selecting a tip percent should update tip amount', () => {
-  const { getByRole, getByTestId } = render(<App />);
-  
-  const priceInput = getByRole('spinbutton', { name: 'price' });
-  const taxSelect = getByRole('combobox', { name: 'tip' });
-  const tip = getByTestId('tip');
-  const total = getByTestId('total');
-  
-  fireEvent.change(priceInput, { target: { value: 100 } });
-  
-  expect(total.textContent).toBe('$120.00');
-  expect(tip.textContent).toBe('$20.00');
-  
-  fireEvent.change(taxSelect, { target: { value: 0.15 } });
-  
-  expect(total.textContent).toBe('$115.00');
-  expect(tip.textContent).toBe('$15.00');
+    expect(window.fetch).toHaveBeenCalledTimes(2);
+    expect(
+      screen.getByText('Mitochondria is the powerhouse of the cell.')
+    ).toBeInTheDocument();
+  });
 });
