@@ -1,32 +1,29 @@
 import React from 'react';
+import { Photo } from './components';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { fact: '' };
+
+    this.state = { quote: '' };
   }
 
-  fetchFact = () => {
-    fetch(`https://uselessfacts.jsph.pl/random.json?language=en`)
-      .then((res) => res.json())
-      .then((data) => this.setState({ fact: data.text }));
-  };
-
   componentDidMount() {
-    this.fetchFact();
+    fetch('https://api.kanye.rest/')
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ quote: data.quote });
+      });
   }
 
   render() {
     return (
-      <header className='masthead d-flex align-items-center'>
-        <div className='container px-lg-5 text-center'>
-          <h1 className='mb-5 text-shadow'>{this.state.fact}</h1>
+      <div className="container p-5 d-flex flex-column align-items-center">
+        <h1 className="mx-auto">{this.state.quote}</h1>
 
-          <button className='btn btn-primary btn-xl' onClick={this.fetchFact}>
-            Find Out More
-          </button>
-        </div>
-      </header>
+        <Photo imgUrl="https://picsum.photos/350" />
+        {/* depending on time, maybe add props of `height` and `width` to Photo */}
+      </div>
     );
   }
 }
