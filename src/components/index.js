@@ -1,1 +1,2 @@
-export * from './Heading';
+export * from './AnswerButton';
+export * from './Question';
