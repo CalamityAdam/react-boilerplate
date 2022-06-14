@@ -1,17 +1,29 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { About, Home } from './pages';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    // here we would do something like submit the form data to the API
+
+    navigate('/success');
+  }
+
   return (
-    <BrowserRouter>
-      <div className='mt-4 mx-auto h-75 w-75'>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <main>
+      <h1>Enter any value to succeed.</h1>
+
+      <form onSubmit={handleSubmit}>
+        <label>
+          Favorite Color
+          <input name="favorite-color" type="text" id="favorite-color-input" />
+        </label>
+        <button type="submit">submit</button>
+      </form>
+    </main>
   );
 }
 
