@@ -1,18 +1,17 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { About, Home } from './pages';
 
 function App() {
   return (
-    <div>
-      <header>
-        <h1>Welcome to React Router!</h1>
-      </header>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-      </Routes>
-    </div>
+    <BrowserRouter>
+      <div className='mt-4 mx-auto h-75 w-75'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
