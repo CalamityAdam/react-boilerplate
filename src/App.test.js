@@ -3,8 +3,8 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { App } from './App';
-import { Home, About } from './pages';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
+import { Layout } from './components';
 
 jest.mock('react-router-dom', () => ({
   BrowserRouter: jest
@@ -17,9 +17,9 @@ jest.mock('react-router-dom', () => ({
       {children}
     </a>
   )),
-  Route: jest.fn().mockImplementation(({ path, element }) => (
+  Route: jest.fn().mockImplementation(({ path, element, children }) => (
     <div data-testid='route' data-path={path}>
-      {element}
+      {children}
     </div>
   )),
   Routes: jest
@@ -27,6 +27,8 @@ jest.mock('react-router-dom', () => ({
     .mockImplementation(({ children }) => (
       <div data-testid='routes'>{children}</div>
     )),
+  useNavigate: jest.fn().mockImplementation(() => mockUseNavigate),
+  Outlet: jest.fn().mockImplementation(() => <div data-testid='outlet' />),
 }));
 
 afterEach(() => {
@@ -34,52 +36,39 @@ afterEach(() => {
 });
 
 it('Should render a proper BrowserRouter implementation', () => {
-  const { getAllByTestId, getByTestId } = render(<App />);
+  const { getByTestId } = render(<App />);
   const browserRouterElem = getByTestId('browser-router');
   const routesElem = getByTestId('routes');
-  const routeElem = getAllByTestId('route')[0];
 
   expect(BrowserRouter).toHaveBeenCalled();
   expect(Routes).toHaveBeenCalled();
-  expect(Route).toHaveBeenCalled();
 
   expect(getByTestId('browser-router')).toBeInTheDocument();
   expect(routesElem).toBeInTheDocument();
-  expect(routeElem).toBeInTheDocument();
 
   expect(browserRouterElem).toContainElement(routesElem);
-  expect(routesElem).toContainElement(routeElem);
-  expect(browserRouterElem).toContainElement(routeElem);
-
-  expect(Route.mock.calls[0][0].path).toBe('/');
-  expect(Route.mock.calls[1][0].path).toBe('/about');
-  expect(getAllByTestId('route')).toHaveLength(2);
 });
 
-it('About should render a Link component', () => {
-  const { getByTestId } = render(<About />);
+it('Layout should render an Outlet component', () => {
+  const { getByTestId } = render(<Layout />);
 
-  expect(Link).toHaveBeenCalled();
-  expect(getByTestId('link')).toBeInTheDocument();
+  expect(Outlet).toHaveBeenCalled();
+  expect(getByTestId('outlet')).toBeInTheDocument();
 });
 
-it('About nav link should point to Home', () => {
-  const { getByTestId } = render(<About />);
+it('App should render a route with path "/" for Layout component', () => {
+  const { getAllByTestId } = render(<App />);
 
-  const linkElem = getByTestId('link');
-  expect(linkElem.dataset['to']).toBe('/');
+  expect(Route).toHaveBeenCalled();
+  expect(getAllByTestId('route')[0]).toBeInTheDocument();
+  expect(getAllByTestId('route')[0]).toHaveAttribute('data-path', '/');
 });
 
-it('Home should render a Link component', () => {
-  const { getByTestId } = render(<Home />);
+it('Layout route should contain 2 Route components', () => {
+  const { getAllByTestId } = render(<App />);
 
-  expect(Link).toHaveBeenCalled();
-  expect(getByTestId('link')).toBeInTheDocument();
-});
-
-it('Home nav link should point to About', () => {
-  const { getByTestId } = render(<Home />);
-
-  const linkElem = getByTestId('link');
-  expect(linkElem.dataset['to']).toBe('/about');
+  expect(Route).toHaveBeenCalledTimes(3);
+  expect(getAllByTestId('route')).toHaveLength(3);
+  expect(getAllByTestId('route')[1]).toHaveAttribute('data-path', '/invoices');
+  expect(getAllByTestId('route')[2]).toHaveAttribute('data-path', '/dashboard');
 });
