@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 function Layout() {
+  const navigate = useNavigate();
   return (
     <div>
-      <h1>📖 Bookkeeper 📊</h1>
+      <h1 onClick={() => navigate('/')}>📖 Bookkeeper 📊</h1>
 
       <nav>
         <Link to='invoices'>Invoices</Link> |{' '}
