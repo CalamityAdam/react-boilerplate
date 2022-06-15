@@ -1,14 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { About, Home } from './pages';
+import { BrowserRouter, Routes } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
       <div className='mt-4 mx-auto h-75 w-75'>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
+          {/* Route components here */}
         </Routes>
       </div>
     </BrowserRouter>
