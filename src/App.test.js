@@ -1,10 +1,18 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { App } from './App';
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 import { Layout } from './components';
+import {
+  BrowserRouter,
+  Outlet,
+  Route,
+  Routes,
+  useNavigate,
+} from 'react-router-dom';
+
+const mockUseNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   BrowserRouter: jest
@@ -71,4 +79,17 @@ it('Layout route should contain 2 Route components', () => {
   expect(getAllByTestId('route')).toHaveLength(3);
   expect(getAllByTestId('route')[1]).toHaveAttribute('data-path', '/invoices');
   expect(getAllByTestId('route')[2]).toHaveAttribute('data-path', '/dashboard');
+});
+
+/* BONUS */
+it('clicking the heading should call useNavigate returned function with "/"', () => {
+  const { getByRole } = render(<Layout />);
+
+  const heading = getByRole('heading', { name: '📖 Bookkeeper 📊' });
+
+  act(() => {
+    fireEvent.click(heading);
+  });
+
+  expect(useNavigate()).toHaveBeenCalledWith('/');
 });
