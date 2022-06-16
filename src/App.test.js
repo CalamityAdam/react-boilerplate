@@ -35,8 +35,8 @@ jest.mock('react-router-dom', () => ({
     .mockImplementation(({ children }) => (
       <div data-testid='routes'>{children}</div>
     )),
-  useNavigate: jest.fn().mockImplementation(() => mockUseNavigate),
   Outlet: jest.fn().mockImplementation(() => <div data-testid='outlet' />),
+  useNavigate: jest.fn().mockImplementation(() => mockUseNavigate),
 }));
 
 afterEach(() => {
