@@ -1,0 +1,12 @@
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+}
+
+.layout {
+  margin-top: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 75%;
+  width: 75%;
+}
