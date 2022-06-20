@@ -1,9 +1,9 @@
-# React Boilerplate with Tests
+# Dark Mode Toggle
 
 ![React](https://img.shields.io/badge/React-v18-blue?style=flat) ![Parcel](https://img.shields.io/badge/Parcel-v2-red?style=flat) ![Jest](https://img.shields.io/badge/Jest-v28-green?style=flat) ![React Router](https://img.shields.io/badge/React%20Router-v6-blue?style=flat) ![Made With](https://img.shields.io/badge/Made%20With-Love-red?style=flat)
 
 
-This is a boilerplate React 18 repository, being served by Parcel, complete with Jest & React Testing Library test suite.
+Toggle a theme between dark/light mode using React Context. [Demo](https://dark-mode-toggle-chi.vercel.app/)
 
 ## Built With
 - ⚛️  [React](https://reactjs.org/)

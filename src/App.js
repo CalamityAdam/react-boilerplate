@@ -16,6 +16,10 @@ function App() {
       >
         Toggle theme
       </button>
+      <p className="mt-2">
+        Explore the code on{' '}
+        <a href='https://github.com/CalamityAdam/dark-mode-toggle'>Github</a>.
+      </p>
     </div>
   );
 }
