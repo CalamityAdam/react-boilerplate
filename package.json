@@ -1,11 +1,12 @@
 {
   "name": "react-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "React boilerplate with jest & test-library/react",
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html --open",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint ./src --ext .js,.jsx"
   },
   "author": "CalamityAdam",
