@@ -19,6 +19,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react/prop-types': 'off',
+    'valid-jsdoc': 'off',
     semi: [1, 'always'],
   },
 };
