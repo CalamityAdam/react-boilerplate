@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button } from './components';
 
-function App() {
+export function Button(props) {
+  return <button onClick={props.onClick}>{props.label}</button>;
+}
+
+export function App() {
   return (
-    <div className="container">
-      <h1>hello, world</h1>
+    <div className='container'>
+      <h1>hello world</h1>
       <p>welcome to react</p>
-      <Button label="hi" />
-      <a href="#">Learn React</a>
+
+      <Button label='hi' />
     </div>
   );
 }
-
-export { App };

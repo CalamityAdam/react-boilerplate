@@ -1,27 +1,46 @@
 /** @jest-environment jsdom */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, fireEvent } from '@testing-library/react';
-import { App } from './App';
-import { Button } from './components/Button';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { App, Button } from './App';
 
 /**
  * Verify something should render
  */
 it('should render', () => {
-  const { baseElement } = render(<App />);
+  // use screen to find element
+  render(<App />);
+
+  expect(screen.getByText(/hello world/i)).toBeInTheDocument();
+});
+
+it('Button should render', () => {
+  // use return from render
+  const { baseElement } = render(<Button />);
 
   expect(baseElement).toBeInTheDocument();
 });
 
-it('Button should render', () => {
-  render(<Button />);
-});
-
 it('Button should render text', () => {
+  // use getByText returned from render
   const { getByText } = render(<Button label='click me' />);
 
   expect(getByText('click me')).toBeInTheDocument();
+});
+
+it('Button should render text', () => {
+  // use snapshot to verify render
+  const { baseElement } = render(<Button label='submit' />);
+
+  expect(baseElement).toMatchInlineSnapshot(`
+    <body>
+      <div>
+        <button>
+          submit
+        </button>
+      </div>
+    </body>
+  `);
 });
 
 /**
