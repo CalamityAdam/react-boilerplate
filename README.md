@@ -4,7 +4,7 @@ This is a boilerplate React 18 repository, being served by Parcel, complete with
 
 ## Built With
 - ⚛️  [React](https://reactjs.org/)
-- 📦  [Parel](https://parceljs.org/)
+- 📦  [Parcel](https://parceljs.org/)
 - 🧪  [Jest](https://jestjs.io/)
 - 🧪⚛️  [Testing Library / React](https://testing-library.com/docs/react-testing-library/setup)
 
